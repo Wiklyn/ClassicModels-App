@@ -176,6 +176,20 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                11, "What is the average percentage markup of the MSRP on buyPrice?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    var averageMarkup = context.Products
+                        .Average(p => (p.Msrp - p.BuyPrice) / p.BuyPrice) * 100;
+
+                    return [
+                        new { avgMarkup = averageMarkup.ToString("F2", new CultureInfo("en-US")) + '%' }
+                    ];
+                }
+            ),
         ];
     }
 }
