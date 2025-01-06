@@ -239,6 +239,25 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                15, "Which orders have a value greater than $5,000?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.OrderDetails
+                        .Where(orderDetail => orderDetail.PriceEach * orderDetail.QuantityOrdered > 5000)
+                        .Select(orderDetail=> new
+                        {
+                            orderDetail.OrderNumber,
+                            orderDetail.ProductCode,
+                            orderDetail.QuantityOrdered,
+                            orderDetail.PriceEach,
+                            orderDetail.OrderLineNumber
+                        })
+                        .ToList();
+                }
+            )
         ];
     }
 }
