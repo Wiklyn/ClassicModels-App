@@ -204,6 +204,22 @@ namespace ClassicModels.Data.Exercises
                     return [ new { distinctProductCount } ];
                 }
             ),
+            new (
+                13, "Report the name and city of customers who don't have sales representatives?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Customers
+                        .Where(customer => customer.SalesRepEmployeeNumber == null)
+                        .Select(customer => new
+                        {
+                            customer.CustomerName,
+                            customer.City
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
