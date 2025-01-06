@@ -1,4 +1,5 @@
 ﻿using ClassicModels.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
 namespace ClassicModels.Data.Exercises
@@ -49,6 +50,26 @@ namespace ClassicModels.Data.Exercises
                     return [
                         new { totalOfPayments = '$' + context.Payments.Sum(p => p.Amount).ToString("N2", new CultureInfo("en-US")) }
                     ];
+                }
+            ),
+            new (
+                4, "List the product lines that contain 'Cars'.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.ProductLines
+                        .Where(
+                            productLine => EF.Functions.Like(productLine.ProductLineName, "%Cars%")
+                        )
+                        .Select(productLine => new
+                        {
+                            productLine.ProductLineName,
+                            productLine.TextDescription,
+                            productLine.HtmlDescription,
+                            productLine.Image
+                        })
+                        .ToList();
                 }
             ),
         ];
