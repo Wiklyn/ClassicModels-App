@@ -1,7 +1,6 @@
 ﻿using ClassicModels.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Logging;
 
 namespace ClassicModels.Data
 {
@@ -21,8 +20,7 @@ namespace ClassicModels.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseNpgsql("Host=localhost;Database=ClassicModels;Username=user_name;Password=user_password")
-                .LogTo(Console.WriteLine, LogLevel.Information); ;
+                .UseNpgsql("Host=localhost;Database=ClassicModels;Username=user_name;Password=user_password");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
