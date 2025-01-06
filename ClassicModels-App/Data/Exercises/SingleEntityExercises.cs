@@ -156,6 +156,26 @@ namespace ClassicModels.Data.Exercises
                     }];
                 }
             ),
+            new (
+                10, "List all payments greater than twice the average payment.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Payments
+                        .Where(payment =>
+                            payment.Amount > 2 * context.Payments.Average(payment => payment.Amount)
+                        )
+                        .Select(payment => new
+                        {
+                            payment.CustomerNumber,
+                            payment.CheckNumber,
+                            payment.PaymentDate,
+                            Amount = '$' + payment.Amount.ToString("N2", new CultureInfo("en-US"))
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
