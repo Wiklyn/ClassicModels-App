@@ -220,6 +220,25 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                14, "What are the names of executives with VP or Manager in their title?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Employees
+                        .Where(employee =>
+                            EF.Functions.Like(employee.JobTitle, "%VP%")
+                            || EF.Functions.Like(employee.JobTitle, "%Manager%")
+                        )
+                        .Select(employee => new
+                        {
+                            EmployeeName = employee.FirstName + ' ' + employee.LastName,
+                            employee.JobTitle
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
