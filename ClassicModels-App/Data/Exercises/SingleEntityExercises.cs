@@ -72,6 +72,19 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                5, "Report total payments for October 28, 2004.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    var payments = context.Payments
+                        .Where(p => p.PaymentDate == new DateTime(2004, 10, 28).ToUniversalTime())
+                        .Sum(p => p.Amount);
+
+                    return [ new { payments = '$' + payments.ToString("N2", new CultureInfo("en-US")) } ];
+                }
+            ),
         ];
     }
 }
