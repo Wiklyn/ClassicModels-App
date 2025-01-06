@@ -85,6 +85,24 @@ namespace ClassicModels.Data.Exercises
                     return [ new { payments = '$' + payments.ToString("N2", new CultureInfo("en-US")) } ];
                 }
             ),
+            new (
+                6, "Report those payments greater than $100,000.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Payments
+                        .Where(payment => payment.Amount > 100_000)
+                        .Select(payment => new
+                        {
+                            payment.CustomerNumber,
+                            payment.CheckNumber,
+                            payment.PaymentDate,
+                            Amount = '$' + payment.Amount.ToString("N2", new CultureInfo("en-US"))
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
