@@ -1,4 +1,5 @@
 ﻿using ClassicModels.Models;
+using System.Globalization;
 
 namespace ClassicModels.Data.Exercises
 {
@@ -37,6 +38,17 @@ namespace ClassicModels.Data.Exercises
                     var context = new AppDbContext();
 
                     return [ new { employeeCount = context.Employees.Count() } ];
+                }
+            ),
+            new (
+                3, "What is the total of payments received?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return [
+                        new { totalOfPayments = '$' + context.Payments.Sum(p => p.Amount).ToString("N2", new CultureInfo("en-US")) }
+                    ];
                 }
             ),
         ];
