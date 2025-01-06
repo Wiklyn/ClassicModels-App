@@ -144,6 +144,18 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                9, "What is the minimum payment received?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return [ new
+                    {
+                        minimumPayment = '$' + context.Payments.Min(payment => payment.Amount).ToString("N2", new CultureInfo("en-US"))
+                    }];
+                }
+            ),
         ];
     }
 }
