@@ -30,6 +30,15 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                2, "How many employees are there in the company?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return [ new { employeeCount = context.Employees.Count() } ];
+                }
+            ),
         ];
     }
 }
