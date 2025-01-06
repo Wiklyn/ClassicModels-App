@@ -7,7 +7,7 @@ namespace ClassicModels.Presentation
     {
         public static void ShowApresentation()
         {
-            Console.WriteLine("Hello! This program allows you to see my solutions to the ClassicModels database exercises I found on HEREGOESTHELINK. So far I have answered only a few of those.");
+            Console.WriteLine("Hello! This program allows you to see my solutions to the ClassicModels database exercises. So far I have answered only a few of those.");
             Console.WriteLine("The results of the queries are formatted as JSON.");
             Console.WriteLine("First you choose which category of exercises you want to see the answers to, and then you choose a specific exercise (or all of them).");
             Console.WriteLine();
