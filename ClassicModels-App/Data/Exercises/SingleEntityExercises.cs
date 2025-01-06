@@ -127,6 +127,23 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                8, "How many products in each product line?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Products
+                        .GroupBy(product => product.ProductLineName)
+                        .Select(group => new
+                        {
+                            ProductLineName = group.Key,
+                            ProductCount = group.Count()
+                        })
+                        .OrderBy(group => group.ProductLineName)
+                        .ToList();
+                }
+            ),
         ];
     }
 }
