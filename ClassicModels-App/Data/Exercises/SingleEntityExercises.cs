@@ -103,6 +103,30 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                7, "List the products in each product line.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Products
+                        .OrderBy(p => p.ProductLineName)
+                        .ThenBy(p => p.ProductName)
+                        .Select(p => new
+                        {
+                            p.ProductCode,
+                            p.ProductLineName,
+                            p.ProductName,
+                            p.ProductDescription,
+                            p.ProductScale,
+                            p.ProductVendor,
+                            p.QuantityInStock,
+                            p.BuyPrice,
+                            p.Msrp
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
