@@ -190,6 +190,20 @@ namespace ClassicModels.Data.Exercises
                     ];
                 }
             ),
+            new (
+                12, "How many distinct products does ClassicModels sell?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    var distinctProductCount = context.Products
+                        .Select(product => product.ProductName)
+                        .Distinct()
+                        .Count();
+
+                    return [ new { distinctProductCount } ];
+                }
+            ),
         ];
     }
 }
