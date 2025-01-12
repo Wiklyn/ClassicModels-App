@@ -190,6 +190,27 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                10, "Report the number of orders 'On Hold' for each customer.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Orders
+                        .Where(order => order.Status == "On Hold")
+                        .GroupBy(
+                            order => new { order.CustomerNumber, order.Customer.CustomerName},
+                            order => order.OrderNumber
+                        )
+                        .Select(group => new
+                        {
+                            group.Key.CustomerNumber,
+                            group.Key.CustomerName,
+                            OrdersOnHold = group.Count()
+                        })
+                        .ToList();
+                }
+            )
         ];
     }
 }
