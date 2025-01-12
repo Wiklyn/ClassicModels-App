@@ -170,6 +170,26 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                9, "List the value of 'On Hold' orders.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.OrderDetails
+                        .Where(orderdetail => orderdetail.Order.Status == "On Hold")
+                        .GroupBy(
+                            orderdetail => orderdetail.OrderNumber,
+                            orderdetail => orderdetail.QuantityOrdered * orderdetail.PriceEach,
+                            (orderNumber, orderValues) => new
+                            {
+                                OrderNumber = orderNumber,
+                                OrderValue = '$' + orderValues.Sum().ToString("N2", new CultureInfo("en-US"))
+                            }
+                        )
+                        .ToList();
+                }
+            ),
         ];
     }
 }
