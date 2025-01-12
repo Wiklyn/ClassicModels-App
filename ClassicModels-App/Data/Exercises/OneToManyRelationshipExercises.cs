@@ -149,6 +149,27 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                8, "Report those payments greater than 100,000. Sort the report so the customer who made the highest payment appears first.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Payments
+                        .Where(payment =>
+                            payment.Amount > 100_000
+                            && payment.Customer != null
+                        )
+                        .OrderByDescending(payment => payment.Amount)
+                        .Select(payment => new
+                        {
+                            payment.CustomerNumber,
+                            payment.Customer.CustomerName,
+                            Amount = '$' + payment.Amount.ToString("N2", new CultureInfo("en-US"))
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
