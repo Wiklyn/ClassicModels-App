@@ -57,6 +57,35 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                4, "Report the products that have not been sold.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Orders
+                        .Where(order => order.Status != "Shipped")
+                        .SelectMany(order =>
+                            order.OrderDetail,
+                            (order, orderDetail) => new
+                            {
+                                order.OrderNumber,
+                                order.Status,
+                                orderDetail.Product
+                            }
+                        )
+                        .Where(result => result.Product != null)
+                        .OrderBy(result => result.Product.ProductName)
+                        .Select(result => new
+                        {
+                            result.Product.ProductCode,
+                            result.Product.ProductName,
+                            result.OrderNumber,
+                            result.Status
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
