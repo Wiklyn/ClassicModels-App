@@ -41,6 +41,22 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                3, "Report the total payments by date.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Payments
+                        .GroupBy(payment => payment.PaymentDate)
+                        .Select(group => new
+                        {
+                            PaymentDate = group.Key,
+                            TotalPayments = '$' + group.Sum(payment => payment.Amount).ToString("N2", new CultureInfo("en-US"))
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
