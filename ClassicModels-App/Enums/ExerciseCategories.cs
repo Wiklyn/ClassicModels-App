@@ -6,5 +6,8 @@ namespace ClassicModels.Enums
     {
         [Description("Single Entity")]
         SingleEntity,
+
+        [Description("One To Many Relationship")]
+        OneToManyRelationship,
     }
 }
