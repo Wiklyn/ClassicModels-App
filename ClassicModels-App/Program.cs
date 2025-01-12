@@ -85,6 +85,13 @@ namespace ClassicModels
                     );
                     break;
 
+                case ExerciseCategories.OneToManyRelationship:
+                    ExerciseServices.Run(
+                        OneToManyRelationshipExercises.ExerciseList,
+                        ExerciseCategories.OneToManyRelationship.GetDescription()
+                    );
+                    break;
+
                 default:
                     Console.WriteLine("Invalid cateagory.");
                     break;
