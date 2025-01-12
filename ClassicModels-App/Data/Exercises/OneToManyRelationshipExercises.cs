@@ -128,6 +128,27 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                7, "Who are the employees in Boston?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Employees
+                        .Where(employee => employee.Office.City == "Boston")
+                        .Select(employee => new
+                        {
+                            employee.EmployeeNumber,
+                            EmployeeName = employee.FirstName + ' ' + employee.LastName,
+                            employee.Extension,
+                            employee.Email,
+                            employee.OfficeCode,
+                            employee.ReportsTo,
+                            employee.JobTitle
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
