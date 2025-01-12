@@ -111,6 +111,23 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                6, "How many orders have been placed by Herkku Gifts?",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Orders
+                        .Where(order => order.Customer.CustomerName == "Herkku Gifts")
+                        .GroupBy(order => order.Customer.CustomerName)
+                        .Select(group => new
+                        {
+                            CustomerName = group.Key,
+                            OrderCount = group.Count()
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
