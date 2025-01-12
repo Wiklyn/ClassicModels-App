@@ -86,6 +86,31 @@ namespace ClassicModels.Data.Exercises
                         .ToList();
                 }
             ),
+            new (
+                5, "List the amount paid by each customer.",
+                () =>
+                {
+                    var context = new AppDbContext();
+
+                    return context.Payments
+                        .GroupBy(
+                            payment => payment.Customer.CustomerName,
+                            payment => payment.Amount,
+                            (customerName, amounts) => new
+                            {
+                                CustomerName = customerName,
+                                TotalPayments = amounts.Sum()
+                            }
+                        )
+                        .OrderBy(result => result.CustomerName)
+                        .Select(result => new
+                        {
+                            result.CustomerName,
+                            TotalPayments = '$' + result.TotalPayments.ToString("N2", new CultureInfo("en-US"))
+                        })
+                        .ToList();
+                }
+            ),
         ];
     }
 }
